@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/pankajanupam/meSelect/issues"
   },
-  "homepage": "https://github.com/pankajanupam/meSelect#readme"
+  "homepage": "https://github.com/pankajanupam/meSelect#readme",
+  "devDependencies": {
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  }
 }
