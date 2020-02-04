@@ -1,0 +1,24 @@
+{
+  "name": "meselect",
+  "version": "1.0.0",
+  "description": "ADA compliance custom select dropdown",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pankajanupam/meSelect.git"
+  },
+  "keywords": [
+    "custom select",
+    "custom select dropdown",
+    "ADA custom select"
+  ],
+  "author": "Pankaj Anupam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pankajanupam/meSelect/issues"
+  },
+  "homepage": "https://github.com/pankajanupam/meSelect#readme"
+}
