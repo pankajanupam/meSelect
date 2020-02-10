@@ -4,12 +4,13 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HandlebarsPlugin from 'handlebars-webpack-plugin';
 
 module.exports = {
-    entry: {
-        meSelect: path.resolve(__dirname, 'src/js/meSelect.js')
-    },
+    entry: [
+        path.resolve(__dirname, 'src/js/meSelect.js'),
+        path.resolve(__dirname, 'src/scss/meSelect.scss')
+    ],
     output: {
         path: path.resolve(__dirname, 'dist/lib'),
-        filename: '[name].js'
+        filename: 'meSelect.js' //'[name].js'
     },
     module: {
         noParse: /\.min\.js/,
@@ -24,7 +25,7 @@ module.exports = {
                         }
                     },
                     'css-loader',
-                    'postcss-loader',
+                    // 'postcss-loader',
                     'sass-loader'
                 ]
             },
@@ -57,7 +58,11 @@ module.exports = {
 
 
     plugins: [
-
+        /** extract css and convert it to a file */
+        new MiniCssExtractPlugin({
+            filename: 'meSelect.css',
+            // chunkFilename: 'meSelect.css',
+        }),
         new HandlebarsPlugin({
             // path to hbs entry file(s). Also supports nested directories if write path.join(process.cwd(), "app", "src", "**", "*.hbs"),
             entry: path.join(process.cwd(), "src/index.html"),
@@ -79,10 +84,10 @@ module.exports = {
 
             // register custom helpers. May be either a function or a glob-pattern
             helpers: {
-                ifEqual: function(arg1, arg2, options) {
+                ifEqual: function (arg1, arg2, options) {
                     return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
                 },
-                json: obj => JSON.stringify(obj)                
+                json: obj => JSON.stringify(obj)
                 // projectHelpers: path.join(process.cwd(), "helpers", "*.helper.js")
             },
 
