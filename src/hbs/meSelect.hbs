@@ -6,13 +6,26 @@
     {{/if}}
     <button aria-haspopup="listbox" aria-labelledby="aria_select__{{data.name}}" class="meselect-box">
         <span>
+            {{!-- {{#unless data.placeholder}}
+                {{#if (lookup (lookup data.options data.select) "img")}}
+                    <img src="{{lookup (lookup data.options data.select) "img"}}" alt="{{lookup (lookup data.options data.select) "label"}}">
+                {{/if}}
+                {{lookup (lookup data.options data.select) "label"}}
+            {{else}} --}}
             {{data.placeholder}}
+            {{!-- {{/unless}} --}}
         </span>
+        {{!-- <span class="meselect-count-selection hide">
+            <i class="meselect-selected-counts"></i>
+        </span> --}}
     </button>
     {{#if data.options}}
     <ul tabindex="-1" role="listbox" aria-labelledby="aria_select__{{data.name}}" class="hide meselect-box-list" aria-activedescendant="{{data.select}}">
+        {{!-- {{#if data.multiple}}aria-multiselectable="true" {{/if}}  --}}
         {{#each data.options}}
         <li role="option" data-value="{{@key}}" 
+            {{#if format-disclaimer-text}} data-format-disclaimer-text="{{format-disclaimer-text}}" {{/if}} 
+            {{#if prodid}} data-bv-product-id="{{prodid}}" {{/if}}
             {{#ifEqual ../data.select @key}} class="focused" aria-selected="true" {{/ifEqual}}>
             {{#if img}} <img src="{{img}}" alt="{{imgalt}}" /> {{/if}}
             {{label}}
