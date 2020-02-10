@@ -1,0 +1,24 @@
+<div class="meselect-box-wrapper" {{#each data.config}} data-{{@key}}="{{this}}" {{/each}}>
+    {{#if data.label}}
+    <h4 id="aria_select__{{data.name}}">{{data.label}}</h4>
+    {{else}}
+    <span id="aria_select__{{data.name}}" class="hide"></span>
+    {{/if}}
+    <button aria-haspopup="listbox" aria-labelledby="aria_select__{{data.name}}" class="meselect-box">
+        <span>
+            {{data.placeholder}}
+        </span>
+    </button>
+    {{#if data.options}}
+    <ul tabindex="-1" role="listbox" aria-labelledby="aria_select__{{data.name}}" class="hide meselect-box-list" aria-activedescendant="{{data.select}}">
+        {{#each data.options}}
+        <li role="option" data-value="{{@key}}" 
+            {{#ifEqual ../data.select @key}} class="focused" aria-selected="true" {{/ifEqual}}>
+            {{#if img}} <img src="{{img}}" alt="{{imgalt}}" /> {{/if}}
+            {{label}}
+            {{#if ../data.hasTick}}<i class="icn-tick-fill"></i>{{/if}}
+        </li>
+        {{/each}}
+    </ul>
+    {{/if}}
+</div>
