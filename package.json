@@ -2,7 +2,7 @@
   "name": "meselect",
   "version": "1.0.0",
   "description": "ADA compliance custom select dropdown",
-  "main": "index.js",
+  "main": "dist/lib/meSelect.js",
   "scripts": {
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
