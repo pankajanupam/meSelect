@@ -3,33 +3,30 @@
  * @function onload
  * @desc Initialize the listbox example once the page has loaded
  */
-import aria from './selectBox';
 
-window.addEventListener('load', function () {
-    var button = document.getElementById('exp_button');
-    var exListbox = new aria.Listbox(document.getElementById('exp_elem_list'));
-    var listboxButton = new aria.ListboxButton(button, exListbox);
-  });
-  
-  var aria = aria || {};
-  
-  aria.ListboxButton = function (button, listbox) {
+import { aria } from './utils';
+import Listbox from './selectBox';
+
+//   var listboxButton = new aria.ListboxButton(listButton, new aria.Listbox(listElem));
+
+export default class ListboxButton {
+  constructor(button, listboxElem) {
     this.button = button;
-    this.listbox = listbox;
+    this.listbox = new Listbox(listboxElem);
     this.registerEvents();
   };
-  
-  aria.ListboxButton.prototype.registerEvents = function () {
+
+  registerEvents() {
     this.button.addEventListener('click', this.showListbox.bind(this));
     this.button.addEventListener('keyup', this.checkShow.bind(this));
     this.listbox.listboxNode.addEventListener('blur', this.hideListbox.bind(this));
     this.listbox.listboxNode.addEventListener('keydown', this.checkHide.bind(this));
     this.listbox.setHandleFocusChange(this.onFocusChange.bind(this));
   };
-  
-  aria.ListboxButton.prototype.checkShow = function (evt) {
+
+  checkShow(evt) {
     var key = evt.which || evt.keyCode;
-  
+
     switch (key) {
       case aria.KeyCode.UP:
       case aria.KeyCode.DOWN:
@@ -39,10 +36,10 @@ window.addEventListener('load', function () {
         break;
     }
   };
-  
-  aria.ListboxButton.prototype.checkHide = function (evt) {
+
+  checkHide(evt) {
     var key = evt.which || evt.keyCode;
-  
+
     switch (key) {
       case aria.KeyCode.RETURN:
       case aria.KeyCode.ESC:
@@ -52,18 +49,19 @@ window.addEventListener('load', function () {
         break;
     }
   };
-  
-  aria.ListboxButton.prototype.showListbox = function () {
-    aria.Utils.removeClass(this.listbox.listboxNode, 'hidden');
+
+  showListbox() {
+    aria.Utils.removeClass(this.listbox.listboxNode, 'meselect-hide');
     this.button.setAttribute('aria-expanded', 'true');
     this.listbox.listboxNode.focus();
   };
-  
-  aria.ListboxButton.prototype.hideListbox = function () {
-    aria.Utils.addClass(this.listbox.listboxNode, 'hidden');
+
+  hideListbox() {
+    aria.Utils.addClass(this.listbox.listboxNode, 'meselect-hide');
     this.button.removeAttribute('aria-expanded');
   };
-  
-  aria.ListboxButton.prototype.onFocusChange = function (focusedItem) {
+
+  onFocusChange(focusedItem) {
     this.button.innerText = focusedItem.innerText;
   };
+}

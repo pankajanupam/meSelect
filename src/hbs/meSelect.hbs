@@ -1,10 +1,10 @@
 <div class="meselect-box-wrapper" {{#each data.config}} data-{{@key}}="{{this}}" {{/each}}>
     {{#if data.label}}
-    <h4 id="aria_select__{{data.name}}">{{data.label}}</h4>
+    <h4 id="aria_select__{{data.config.name}}">{{data.label}}</h4>
     {{else}}
-    <span id="aria_select__{{data.name}}" class="meselect-hide"></span>
+    <span id="aria_select__{{data.config.name}}" class="meselect-hide"></span>
     {{/if}}
-    <button aria-haspopup="listbox" aria-labelledby="aria_select__{{data.name}}" class="meselect-box">
+    <button aria-haspopup="listbox" aria-labelledby="aria_select__{{data.config.name}}" class="meselect-box">
         <span>
             {{!-- {{#unless data.placeholder}}
                 {{#if (lookup (lookup data.options data.select) "img")}}
@@ -15,12 +15,12 @@
             {{data.placeholder}}
             {{!-- {{/unless}} --}}
         </span>
-        {{!-- <span class="meselect-count-selection hide">
+        {{!-- <span class="meselect-count-selection meselect-hide">
             <i class="meselect-selected-counts"></i>
         </span> --}}
     </button>
     {{#if data.options}}
-    <ul tabindex="-1" role="listbox" aria-labelledby="aria_select__{{data.name}}" class="meselect-hide meselect-box-list" aria-activedescendant="{{data.select}}">
+    <ul tabindex="-1" role="listbox" aria-labelledby="aria_select__{{data.config.name}}" class="meselect-hide meselect-box-list" aria-activedescendant="{{data.select}}">
         {{!-- {{#if data.multiple}}aria-multiselectable="true" {{/if}}  --}}
         {{#each data.options}}
         <li role="option" data-value="{{@key}}" 

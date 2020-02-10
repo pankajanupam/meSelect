@@ -9,6 +9,10 @@ $global-right: right;
   &-wrapper {
     position: "relative";
     margin-bottom: rem-calc(5);
+
+    // h4 {
+    //   margin-bottom: rem-calc(8);
+    // }
   }
 
   display: flex;
@@ -36,7 +40,7 @@ $global-right: right;
   }
 
   &[aria-expanded="true"]::after {
-    content: "22C0";
+    content: "\22C0";
   }
 
   &[aria-disabled="true"] {
@@ -108,9 +112,31 @@ $global-right: right;
       padding-#{$global-left}: 12;
       padding-#{$global-right}: rem-calc(21);
 
+      .icn-tick-fill {
+        padding-#{$global-left}: rem-calc(10);
+        margin-#{$global-left}: auto;
+
+        &::after {
+          content: "";
+          border: 1 solid green;
+          border-radius: 50%;
+          width: rem-calc(7);
+          height: rem-calc(7);
+          display: inline-block;
+        }
+      }
+
       &:hover,
       &.focused {
         background: lightgreen;
+      }
+
+      &[aria-selected="true"] {
+        .meseelect-icn-tick-fill {
+          &::after {
+            background: green;
+          }
+        }
       }
 
       img {
