@@ -1,0 +1,125 @@
+$global-left: left;
+$global-right: right;
+
+.meselect-hide {
+  display: none !important;
+}
+
+.meselect-box {
+  &-wrapper {
+    position: "relative";
+    margin-bottom: rem-calc(5);
+  }
+
+  display: flex;
+  border-radius: 0;
+  font-size: rem-calc(14);
+  text-align: $global-left;
+  padding-#{$global-right}: rem-calc(40);
+  padding-#{$global-left}: rem-calc(16);
+  width: 100%;
+  position: relative;
+  background: white;
+  height: rem-calc(50);
+  color: gray;
+  text-transform: capitalize;
+
+  &::after {
+    content: "\22C1";
+    position: absolute;
+    #{$global-right}: rem-calc(15);
+    top: rem-calc(15);
+    font-size: rem-calc(22);
+    color: green;
+    font-weight: 700;
+    z-index: 2;
+  }
+
+  &[aria-expanded="true"]::after {
+    content: "22C0";
+  }
+
+  &[aria-disabled="true"] {
+    opacity: 0.5;
+  }
+
+  span {
+    img {
+      max-height: rem-calc(50);
+    }
+
+    &:first-child {
+      margin: auto;
+      margin-#{$global-left}: 0;
+    }
+
+    &:last-child {
+      margin-#{$global-left}: auto;
+      margin-#{$global-right}: 0;
+
+      i {
+        display: block;
+        width: rem-calc(24);
+        height: rem-calc(24);
+        line-height: rem-calc(24);
+        padding-#{$global-left}: rem-calc(1);
+        border-radius: 50%;
+        background-color: green-primary;
+        color: white;
+        text-align: center;
+        font-style: normal;
+      }
+    }
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &-list {
+    z-index: 3;
+    padding: 0;
+    outline: none;
+    color: black;
+    background: white;
+    border-top: 0;
+    overflow-y: auto;
+    margin: 0;
+    width: 100%;
+    box-shadow: 0 rem-calc(1) rem-calc(2) 0 rgba(black, 0.18);
+    position: static;
+    max-height: unset;
+    text-transform: capitalize;
+
+    li {
+      font-size: rem-calc(14);
+
+      img {
+        width: auto;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    [role="option"] {
+      height: rem-calc(50);
+      display: flex;
+      align-items: center;
+      padding-#{$global-left}: 12;
+      padding-#{$global-right}: rem-calc(21);
+
+      &:hover,
+      &.focused {
+        background: lightgreen;
+      }
+
+      img {
+        margin-#{$global-right}: rem-calc(8);
+      }
+
+      sup {
+        margin-right: rem-calc(4);
+      }
+    }
+  }
+}

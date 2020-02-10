@@ -2,7 +2,7 @@
     {{#if data.label}}
     <h4 id="aria_select__{{data.name}}">{{data.label}}</h4>
     {{else}}
-    <span id="aria_select__{{data.name}}" class="hide"></span>
+    <span id="aria_select__{{data.name}}" class="meselect-hide"></span>
     {{/if}}
     <button aria-haspopup="listbox" aria-labelledby="aria_select__{{data.name}}" class="meselect-box">
         <span>
@@ -20,7 +20,7 @@
         </span> --}}
     </button>
     {{#if data.options}}
-    <ul tabindex="-1" role="listbox" aria-labelledby="aria_select__{{data.name}}" class="hide meselect-box-list" aria-activedescendant="{{data.select}}">
+    <ul tabindex="-1" role="listbox" aria-labelledby="aria_select__{{data.name}}" class="meselect-hide meselect-box-list" aria-activedescendant="{{data.select}}">
         {{!-- {{#if data.multiple}}aria-multiselectable="true" {{/if}}  --}}
         {{#each data.options}}
         <li role="option" data-value="{{@key}}" 
