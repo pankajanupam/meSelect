@@ -1,0 +1,48 @@
+{
+    "months": {
+        "placeholder": "Months",
+        "config": {
+            "name": "month",
+            "replaceplaceholder": "false"
+        },
+        "select": "05",
+        "options": {
+            "01": {
+                "label": "Jan"
+            },
+            "02": {
+                "label": "Feb"
+            },
+            "03": {
+                "label": "March"
+            },
+            "04": {
+                "label": "April"
+            },
+            "05": {
+                "label": "May"
+            },
+            "06": {
+                "label": "Jun"
+            },
+            "07": {
+                "label": "July"
+            },
+            "08": {
+                "label": "Aug"
+            },
+            "09": {
+                "label": "Sep"
+            },
+            "10": {
+                "label": "Oct"
+            },
+            "11": {
+                "label": "Nov"
+            },
+            "12": {
+                "label": "Dec"
+            }
+        }
+    }
+}
