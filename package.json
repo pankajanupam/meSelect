@@ -1,6 +1,6 @@
 {
   "name": "meselect",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ADA compliance custom select dropdown",
   "main": "dist/lib/meSelect.js",
   "scripts": {
