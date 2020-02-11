@@ -56,7 +56,6 @@ export default class ListboxButton extends Listbox {
   };
 
   hideListbox() {
-    console.log('blur');
     setTimeout((elem => {
       Listbox.addClass(elem.listboxNode, HIDE);
       elem.button.removeAttribute('aria-expanded');
