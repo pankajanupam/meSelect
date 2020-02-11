@@ -1,26 +1,18 @@
-/*
-*   This content is licensed according to the W3C Software License at
-*   https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
-*/
-import { aria } from './utils'
-/**
- * @namespace aria
- */
-// var aria = aria || {};
+import Utils from './utils';
 
-/**
- * @constructor
- *
- * @desc
- *  Listbox object representing the state and interactions for a listbox widget
- *
- * @param listboxNode
- *  The DOM node pointing to the listbox
- */
-
-
-export default class Listbox {
+const HIDE = 'meselect-hide';
+export default class Listbox extends Utils {
+  /**
+   * @constructor
+   *
+   * @desc
+   *  Listbox object representing the state and interactions for a listbox widget
+   *
+   * @param listboxNode
+   *  The DOM node pointing to the listbox
+   */
   constructor(listboxNode) {
+    super();
     this.listboxNode = listboxNode;
     this.activeDescendant = this.listboxNode.getAttribute('aria-activedescendant');
     this.multiselectable = this.listboxNode.hasAttribute('aria-multiselectable');
@@ -32,7 +24,7 @@ export default class Listbox {
     this.keysSoFar = '';
     this.handleFocusChange = function () { };
     this.handleItemChange = function (event, items) { };
-    this.registerEvents();
+    // this.registerEvents();
   }
 
   /**
@@ -43,7 +35,7 @@ export default class Listbox {
     this.listboxNode.addEventListener('focus', this.setupFocus.bind(this));
     this.listboxNode.addEventListener('keydown', this.checkKeyPress.bind(this));
     this.listboxNode.addEventListener('click', this.checkClickItem.bind(this));
-  };
+  }
 
   /**
    * @desc
@@ -55,7 +47,7 @@ export default class Listbox {
     }
 
     this.focusFirstItem();
-  };
+  }
 
 
   /**
@@ -63,50 +55,49 @@ export default class Listbox {
    *  Focus on the first option
    */
   focusFirstItem() {
-    var firstItem;
 
-    firstItem = this.listboxNode.querySelector('[role="option"]');
+    let firstItem = this.listboxNode.querySelector('[role="option"]');
 
-    if (firstItem) {
+    if (firstItem.length) {
       this.focusItem(firstItem);
     }
-  };
+  }
 
   /**
    * @desc
    *  Focus on the last option
    */
   focusLastItem() {
-    var itemList = this.listboxNode.querySelectorAll('[role="option"]');
+    let itemList = this.listboxNode.querySelectorAll('[role="option"]');
 
     if (itemList.length) {
       this.focusItem(itemList[itemList.length - 1]);
     }
-  };
+  }
 
   /**
    * @desc
-   *  Handle various keyboard controls; UP/DOWN will shift focus; SPACE selects
+   *  Handle letious keyboard controls; UP/DOWN will shift focus; SPACE selects
    *  an item.
    *
    * @param evt
    *  The keydown event object
    */
   checkKeyPress(evt) {
-    var key = evt.which || evt.keyCode;
-    var nextItem = document.getElementById(this.activeDescendant);
+    let key = evt.which || evt.keyCode;
+    let nextItem = this.listboxNode.querySelector(`[data-value="${this.activeDescendant}"]`);
 
     if (!nextItem) {
       return;
     }
 
     switch (key) {
-      case aria.KeyCode.PAGE_UP:
-      case aria.KeyCode.PAGE_DOWN:
+      case this.KeyCode.PAGE_UP:
+      case this.KeyCode.PAGE_DOWN:
         if (this.moveUpDownEnabled) {
           evt.preventDefault();
 
-          if (key === aria.KeyCode.PAGE_UP) {
+          if (key === this.KeyCode.PAGE_UP) {
             this.moveUpItems();
           }
           else {
@@ -115,12 +106,12 @@ export default class Listbox {
         }
 
         break;
-      case aria.KeyCode.UP:
-      case aria.KeyCode.DOWN:
+      case this.KeyCode.UP:
+      case this.KeyCode.DOWN:
         evt.preventDefault();
 
         if (this.moveUpDownEnabled && evt.altKey) {
-          if (key === aria.KeyCode.UP) {
+          if (key === this.KeyCode.UP) {
             this.moveUpItems();
           }
           else {
@@ -129,7 +120,7 @@ export default class Listbox {
           return;
         }
 
-        if (key === aria.KeyCode.UP) {
+        if (key === this.KeyCode.UP) {
           nextItem = nextItem.previousElementSibling;
         }
         else {
@@ -141,31 +132,31 @@ export default class Listbox {
         }
 
         break;
-      case aria.KeyCode.HOME:
+      case this.KeyCode.HOME:
         evt.preventDefault();
         this.focusFirstItem();
         break;
-      case aria.KeyCode.END:
+      case this.KeyCode.END:
         evt.preventDefault();
         this.focusLastItem();
         break;
-      case aria.KeyCode.SPACE:
+      case this.KeyCode.SPACE:
         evt.preventDefault();
         this.toggleSelectItem(nextItem);
         break;
-      case aria.KeyCode.BACKSPACE:
-      case aria.KeyCode.DELETE:
-      case aria.KeyCode.RETURN:
+      case this.KeyCode.BACKSPACE:
+      case this.KeyCode.DELETE:
+      case this.KeyCode.RETURN:
         if (!this.moveButton) {
           return;
         }
 
-        var keyshortcuts = this.moveButton.getAttribute('aria-keyshortcuts');
-        if (key === aria.KeyCode.RETURN && keyshortcuts.indexOf('Enter') === -1) {
+        let keyshortcuts = this.moveButton.getAttribute('aria-keyshortcuts');
+        if (key === this.KeyCode.RETURN && keyshortcuts.indexOf('Enter') === -1) {
           return;
         }
         if (
-          (key === aria.KeyCode.BACKSPACE || key === aria.KeyCode.DELETE) &&
+          (key === this.KeyCode.BACKSPACE || key === this.KeyCode.DELETE) &&
           keyshortcuts.indexOf('Delete') === -1
         ) {
           return;
@@ -173,7 +164,7 @@ export default class Listbox {
 
         evt.preventDefault();
 
-        var nextUnselected = nextItem.nextElementSibling;
+        let nextUnselected = nextItem.nextElementSibling;
         while (nextUnselected) {
           if (nextUnselected.getAttribute('aria-selected') != 'true') {
             break;
@@ -197,20 +188,20 @@ export default class Listbox {
         }
         break;
       default:
-        var itemToFocus = this.findItemToFocus(key);
+        let itemToFocus = this.findItemToFocus(key);
         if (itemToFocus) {
           this.focusItem(itemToFocus);
         }
         break;
     }
-  };
+  }
 
   findItemToFocus(key) {
-    var itemList = this.listboxNode.querySelectorAll('[role="option"]');
-    var character = String.fromCharCode(key);
+    let itemList = this.listboxNode.querySelectorAll('[role="option"]');
+    let character = String.fromCharCode(key);
 
     if (!this.keysSoFar) {
-      for (var i = 0; i < itemList.length; i++) {
+      for (let i = 0; i < itemList.length; i++) {
         if (itemList[i].getAttribute('id') == this.activeDescendant) {
           this.searchIndex = i;
         }
@@ -219,7 +210,7 @@ export default class Listbox {
     this.keysSoFar += character;
     this.clearKeysSoFarAfterDelay();
 
-    var nextMatch = this.findMatchInRange(
+    let nextMatch = this.findMatchInRange(
       itemList,
       this.searchIndex + 1,
       itemList.length
@@ -232,7 +223,7 @@ export default class Listbox {
       );
     }
     return nextMatch;
-  };
+  }
 
   clearKeysSoFarAfterDelay() {
     if (this.keyClear) {
@@ -243,19 +234,19 @@ export default class Listbox {
       this.keysSoFar = '';
       this.keyClear = null;
     }).bind(this), 500);
-  };
+  }
 
   findMatchInRange(list, startIndex, endIndex) {
     // Find the first item starting with the keysSoFar substring, searching in
     // the specified range of items
-    for (var n = startIndex; n < endIndex; n++) {
-      var label = list[n].innerText;
+    for (let n = startIndex; n < endIndex; n++) {
+      let label = list[n].innerText;
       if (label && label.toUpperCase().indexOf(this.keysSoFar) === 0) {
         return list[n];
       }
     }
     return null;
-  };
+  }
 
   /**
    * @desc
@@ -269,7 +260,7 @@ export default class Listbox {
       this.focusItem(evt.target);
       this.toggleSelectItem(evt.target);
     }
-  };
+  }
 
   /**
    * @desc
@@ -293,8 +284,11 @@ export default class Listbox {
           this.moveButton.setAttribute('aria-disabled', 'true');
         }
       }
+    } else {
+      Listbox.addClass(this.listboxNode, HIDE);
+      // this.listboxNode.blur();
     }
-  };
+  }
 
   /**
    * @desc
@@ -310,8 +304,8 @@ export default class Listbox {
     if (!this.multiselectable) {
       element.removeAttribute('aria-selected');
     }
-    aria.Utils.removeClass(element, 'focused');
-  };
+    Listbox.removeClass(element, 'focused');
+  }
 
   /**
    * @desc
@@ -321,17 +315,18 @@ export default class Listbox {
    *  The element to focus
    */
   focusItem(element) {
-    this.defocusItem(document.getElementById(this.activeDescendant));
+    this.activeDescendant && this.defocusItem(this.listboxNode.querySelector(`[data-value="${this.activeDescendant}"]`));
     if (!this.multiselectable) {
       element.setAttribute('aria-selected', 'true');
     }
-    aria.Utils.addClass(element, 'focused');
-    this.listboxNode.setAttribute('aria-activedescendant', element.id);
-    this.activeDescendant = element.id;
+
+    Listbox.addClass(element, 'focused');
+    this.activeDescendant = element.getAttribute('data-value');
+    this.listboxNode.setAttribute('aria-activedescendant', this.activeDescendant);
 
     if (this.listboxNode.scrollHeight > this.listboxNode.clientHeight) {
-      var scrollBottom = this.listboxNode.clientHeight + this.listboxNode.scrollTop;
-      var elementBottom = element.offsetTop + element.offsetHeight;
+      let scrollBottom = this.listboxNode.clientHeight + this.listboxNode.scrollTop;
+      let elementBottom = element.offsetTop + element.offsetHeight;
       if (elementBottom > scrollBottom) {
         this.listboxNode.scrollTop = elementBottom - this.listboxNode.clientHeight;
       }
@@ -346,14 +341,14 @@ export default class Listbox {
 
     this.checkUpDownButtons();
     this.handleFocusChange(element);
-  };
+  }
 
   /**
    * @desc
    *  Enable/disable the up/down arrows based on the activeDescendant.
    */
   checkUpDownButtons() {
-    var activeElement = document.getElementById(this.activeDescendant);
+    let activeElement = this.listboxNode.querySelector(`[data-value="${this.activeDescendant}"]`);
 
     if (!this.moveUpDownEnabled) {
       return false;
@@ -382,7 +377,7 @@ export default class Listbox {
         this.downButton.setAttribute('aria-disabled', 'true');
       }
     }
-  };
+  }
 
   /**
    * @desc
@@ -407,7 +402,7 @@ export default class Listbox {
     }
 
     this.handleItemChange('added', items);
-  };
+  }
 
   /**
    * @desc
@@ -419,13 +414,13 @@ export default class Listbox {
    *  An array of items that were removed from the listbox
    */
   deleteItems() {
-    var itemsToDelete;
+    let itemsToDelete;
 
     if (this.multiselectable) {
       itemsToDelete = this.listboxNode.querySelectorAll('[aria-selected="true"]');
     }
     else if (this.activeDescendant) {
-      itemsToDelete = [document.getElementById(this.activeDescendant)];
+      itemsToDelete = [this.listboxNode.querySelector(`[data-value="${this.activeDescendant}"]`)];
     }
 
     if (!itemsToDelete || !itemsToDelete.length) {
@@ -443,7 +438,7 @@ export default class Listbox {
     this.handleItemChange('removed', itemsToDelete);
 
     return itemsToDelete;
-  };
+  }
 
   clearActiveDescendant() {
     this.activeDescendant = null;
@@ -454,7 +449,7 @@ export default class Listbox {
     }
 
     this.checkUpDownButtons();
-  };
+  }
 
   /**
    * @desc
@@ -462,13 +457,13 @@ export default class Listbox {
    *  item is already at the top of the list.
    */
   moveUpItems() {
-    var previousItem;
+    let previousItem;
 
     if (!this.activeDescendant) {
       return;
     }
 
-    currentItem = document.getElementById(this.activeDescendant);
+    currentItem = this.listboxNode.querySelector(`[data-value="${this.activeDescendant}"]`);
     previousItem = currentItem.previousElementSibling;
 
     if (previousItem) {
@@ -477,7 +472,7 @@ export default class Listbox {
     }
 
     this.checkUpDownButtons();
-  };
+  }
 
   /**
    * @desc
@@ -485,13 +480,13 @@ export default class Listbox {
    *  the item is already at the end of the list.
    */
   moveDownItems() {
-    var nextItem;
+    let nextItem;
 
     if (!this.activeDescendant) {
       return;
     }
 
-    currentItem = document.getElementById(this.activeDescendant);
+    currentItem = this.listboxNode.querySelector(`[data-value="${this.activeDescendant}"]`);
     nextItem = currentItem.nextElementSibling;
 
     if (nextItem) {
@@ -500,7 +495,7 @@ export default class Listbox {
     }
 
     this.checkUpDownButtons();
-  };
+  }
 
   /**
    * @desc
@@ -511,9 +506,9 @@ export default class Listbox {
       return;
     }
 
-    var itemsToMove = this.deleteItems();
+    let itemsToMove = this.deleteItems();
     this.siblingList.addItems(itemsToMove);
-  };
+  }
 
   /**
    * @desc
@@ -532,7 +527,7 @@ export default class Listbox {
     this.downButton = downButton;
     upButton.addEventListener('click', this.moveUpItems.bind(this));
     downButton.addEventListener('click', this.moveDownItems.bind(this));
-  };
+  }
 
   /**
    * @desc
@@ -549,13 +544,13 @@ export default class Listbox {
     this.siblingList = siblingList;
     this.moveButton = button;
     button.addEventListener('click', this.moveItems.bind(this));
-  };
+  }
 
   setHandleItemChange(handlerFn) {
     this.handleItemChange = handlerFn;
-  };
+  }
 
   setHandleFocusChange(focusChangeHandler) {
     this.handleFocusChange = focusChangeHandler;
-  };
+  }
 };

@@ -1,6 +1,11 @@
 $global-left: left;
 $global-right: right;
 
+@function rem-calc($size) {
+  $remSize: $size / 16;
+  @return #{$remSize}rem;
+}
+
 .meselect-hide {
   display: none !important;
 }
@@ -15,18 +20,19 @@ $global-right: right;
     // }
   }
 
+  width: 100%;
+  height: rem-calc(30);
+  color: gray;
   display: flex;
   border-radius: 0;
-  font-size: rem-calc(14);
-  text-align: $global-left;
-  padding-#{$global-right}: rem-calc(40);
-  padding-#{$global-left}: rem-calc(16);
-  width: 100%;
   position: relative;
   background: white;
   height: rem-calc(50);
-  color: gray;
+  font-size: rem-calc(14);
+  text-align: $global-left;
   text-transform: capitalize;
+  padding-#{$global-right}: rem-calc(40);
+  padding-#{$global-left}: rem-calc(16);
 
   &::after {
     content: "\22C1";
@@ -97,7 +103,7 @@ $global-right: right;
 
     li {
       font-size: rem-calc(14);
-
+      padding: 0 rem-calc(10);
       img {
         width: auto;
         max-width: 100%;
