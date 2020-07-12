@@ -5,6 +5,8 @@ No dependencies needed.
 <!-- [![Build Status](https://travis-ci.org/meselect/meselect.svg?branch=master)](https://travis-ci.org/meselect/meselect) -->
 [![npm](https://img.shields.io/npm/v/meselect.svg)](https://www.npmjs.com/package/meselect)
 [![npm](https://img.shields.io/npm/dm/meselect.svg)](https://www.npmjs.com/package/meselect)
+[![Dependencies Status](https://david-dm.org/pankajanupam/meselect/status.svg)](https://david-dm.org/pankajanupam/meselect)
+[![devDependencies Status](https://david-dm.org/pankajanupam/meselect/dev-status.svg)](https://david-dm.org/pankajanupam/meselect?type=dev)
 [![bundlephobia](https://img.shields.io/bundlephobia/min/meselect?style=plastic)](https://www.npmjs.com/package/meselect)
 [![license](https://img.shields.io/github/license/pankajanupam/meselect?style=plastic)](https://www.npmjs.com/package/meselect)
 
