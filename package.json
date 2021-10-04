@@ -1,6 +1,6 @@
 {
   "name": "meselect",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ADA compliance custom select dropdown",
   "main": "dist/lib/meSelect.js",
   "scripts": {
@@ -23,20 +23,20 @@
   },
   "homepage": "https://github.com/pankajanupam/meSelect#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/node": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
-    "babel-eslint": "^10.0.3",
-    "babel-loader": "^8.0.6",
-    "css-loader": "^3.4.2",
-    "eslint": "^6.8.0",
-    "eslint-loader": "^3.0.3",
-    "handlebars-webpack-plugin": "^1.8.0",
-    "mini-css-extract-plugin": "^0.9.0",
-    "node-sass": "^4.13.1",
-    "sass-loader": "^8.0.2",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.3"
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^6.3.0",
+    "eslint": "^7.32.0",
+    "eslint-loader": "^4.0.2",
+    "handlebars-webpack-plugin": "^2.2.1",
+    "mini-css-extract-plugin": "^2.3.0",
+    "node-sass": "^6.0.1",
+    "sass-loader": "^12.1.0",
+    "webpack": "^5.56.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.3.0"
   }
 }

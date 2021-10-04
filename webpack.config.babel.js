@@ -18,12 +18,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            hmr: process.env.NODE_ENV === 'development'
-                        }
-                    },
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     // 'postcss-loader',
                     'sass-loader'
@@ -73,7 +68,7 @@ module.exports = {
             // output: path.join(process.cwd(), "build", [path], "[name].html"),
 
             // data passed to main hbs template: `main-template(data)`
-            data: path.join(process.cwd(), "data/selectdata.json"),
+            data: path.join(process.cwd(), "demo/data/selectdata.json"),
             // or add it as filepath to rebuild data on change using webpack-dev-server
             // data: path.join(__dirname, "app/data/project.json"),
 
