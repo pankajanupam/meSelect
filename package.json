@@ -33,7 +33,7 @@
     "eslint-loader": "^4.0.2",
     "handlebars-webpack-plugin": "^2.2.1",
     "mini-css-extract-plugin": "^2.3.0",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "^12.1.0",
     "webpack": "^5.56.1",
     "webpack-cli": "^4.8.0",
